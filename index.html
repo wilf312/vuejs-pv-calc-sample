@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<title></title>
+<meta charset="UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="vue.js"></script>
+
+<style type="text/css">
+
+p {
+    margin: 0;
+    padding: 0;
+}
+.type1 { background-color: #fdc; }
+.type2 { background-color: #fcf; }
+.type3 { background-color: #cff; }
+.type4 { background-color: #ffc; }
+</style>
+
+</head>
+<body>
+
+
+<div id="demo">
+    <h1>{{inputText}}万PV確認</h1>
+    <p>{{message ? message : ""}}</p>
+
+    <input v-model="inputText" v-on="keyup : keyUpHandler(this)">万PV
+    <p class="type1">1日   ： {{day}} pv/d</p>
+    <p class="type2">1時間 ： {{hour}} pv/h</p>
+    <p class="type3">1分   ： {{minute}} pv/min</p>
+    <p class="type4">1秒   ： {{second}} pv/sec</p>
+
+
+</div>
+
+
+
+
+<script>
+(function() {
+    var demo = new Vue({
+        el: '#demo',
+        data: {
+            inputText: '',
+            message: '',
+            day: 0,
+            hour: 0,
+            minute: 0,
+            second: 0
+        },
+        methods : {
+            keyUpHandler : function( evt ){
+                console.log(evt);
+                var num = parseInt(evt.inputText, 10);
+                console.log(num);
+
+                num = num * 10000;
+
+
+                var vm = demo;
+                vm.day      = parseInt(num / 30 * 10, 10) / 10 ;
+                vm.hour     = parseInt(vm.day / 24 * 10, 10) / 10;
+                vm.minute   = parseInt(vm.hour / 60 * 10, 10) / 10;
+                vm.second   = parseInt(vm.minute / 60 * 10, 10) / 10;
+            }
+        }
+    });
+
+})();
+</script>
+</body>
+</html>
